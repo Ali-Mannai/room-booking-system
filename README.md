@@ -53,8 +53,8 @@ SESSION_LIFETIME=120
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=2525
-MAIL_USERNAME=<my-mailtrap-username>
-MAIL_PASSWORD=<my-mailtrap-password>
+MAIL_USERNAME=<your-mailtrap-username>
+MAIL_PASSWORD=<your-mailtrap-password>
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS="no-reply@roombooking.com"
 MAIL_FROM_NAME="${APP_NAME}"
@@ -169,6 +169,7 @@ Check Mailtrap inbox for booking confirmation/cancellation emails.
 Troubleshooting
 
 .env Errors:
+
 Verify .env syntax:
 cat -vet .env
 php -r "var_dump(parse_ini_file('.env'));"
@@ -179,6 +180,7 @@ Ensure no extra whitespace in DB_DATABASE.
 
 
 Missing Files:
+
 Check app/Http/Kernel.php:
 ls app/Http/Kernel.php
 
@@ -190,6 +192,7 @@ composer create-project laravel/laravel room-booking-system
 
 
 Mailtrap Issues:
+
 Test email sending:
 php artisan tinker
 Mail::raw('Test email', function($message) { $message->to('test@example.com')->subject('Test'); });
