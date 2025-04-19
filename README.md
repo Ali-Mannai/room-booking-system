@@ -1,207 +1,152 @@
-Mini Room Booking System
-Overview
-The Mini Room Booking System is a web application built with Laravel 12.x, designed to allow users to book rooms and administrators to manage room availability. Key features include user authentication, room management, booking creation/cancellation, and email notifications for booking confirmations and cancellations.
-Features
+# Room Booking System
 
-User Authentication: Register, login, and logout using Laravel Breeze.
-Room Management: Admins can create, edit, and delete rooms.
-Booking System: Users can book rooms for specific dates and cancel bookings.
-Email Notifications: Sends confirmation and cancellation emails via Mailtrap.
-Responsive Design: Styled with Tailwind CSS for a modern UI.
+![System Dashboard](assets/dashboardPage.png)
 
-Requirements
+## Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [Installation Guide](#installation-guide)
+- [Configuration](#configuration)
+- [User Guide](#user-guide)
+- [Admin Guide](#admin-guide)
 
-PHP >= 8.2
-Composer
-Node.js and npm
-SQLite (used as the database)
-Mailtrap account for email notifications
+## Overview
 
-Installation
-1. Clone the Repository or Create the Project
-If starting from scratch:
-cd ~/Desktop/room-booking-system
-composer create-project laravel/laravel room-booking-system
+A comprehensive room booking platform built with Laravel 12 featuring:
+- Dual user roles (admin/regular users)
+- Intuitive booking system with email notifications
+- Modern responsive interface using Tailwind CSS
+- Centralized room and booking management
+
+## Key Features
+
+### Responsive Design
+- Mobile-friendly interface
+- Intuitive navigation
+- Consistent UI across devices
+
+## Technology Stack
+
+### Backend
+- **Laravel 12.x** - Full-stack framework with Eloquent ORM
+- **PHP 8.2+** - Required extensions: PDO, SQLite, OpenSSL
+- **SQLite** - Lightweight database (no server required)
+- **Mailtrap** - Email testing service (SMTP configuration)
+
+### Frontend
+- **Tailwind CSS 3.1** - Utility-first CSS framework
+- **Alpine.js 3.4** - Lightweight JavaScript framework
+- **Vite 6.x** - Next-generation build tool
+- **Axios 1.8** - HTTP client for API calls
+
+### Development Tools
+- **Composer 2.x** - PHP dependency manager
+- **Node.js 16+** - JavaScript runtime (LTS recommended)
+- **Laravel Breeze** - Authentication scaffolding
+
+## Installation
+
+### Prerequisites
+# Verify versions
+```
+php -v  # Requires >= 8.2
+node -v  # Requires >= 16
+composer --version  # Requires >= 2.0
+```
+
+### Setup Steps
+1. Clone repository:
+```
+git clone https://github.com/Ali-Mannai/room-booking-system.git
 cd room-booking-system
+```
 
-2. Configure Environment
+2. Install dependencies:
+```
+composer install
+npm install
+```
 
-Copy .env.example to .env:
+3. Configure environment:
+```
 cp .env.example .env
+php artisan key:generate
+```
 
+4. Set up database:
+```
+touch database/database.sqlite
+php artisan migrate:fresh --seed
+```
 
-Update .env with the following:
-APP_NAME="Room Booking System"
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost
+5. Build assets:
+```
+npm run dev  # For development
+# or
+npm run build  # For production
+```
 
-LOG_CHANNEL=stack
-LOG_LEVEL=debug
+6. Launch server:
+```
+php artisan serve
+```
 
+### Configuration
+Edit `.env` file:
+```
 DB_CONNECTION=sqlite
-DB_DATABASE=/c/Users/MANNAI\ ALI/Desktop/room-booking-system/room-booking-system/database/database.sqlite
-
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-FILESYSTEM_DISK=local
-QUEUE_CONNECTION=sync
-SESSION_DRIVER=file
-SESSION_LIFETIME=120
+DB_DATABASE=/absolute/path/to/database.sqlite
 
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=2525
-MAIL_USERNAME=<your-mailtrap-username>
-MAIL_PASSWORD=<your-mailtrap-password>
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS="no-reply@roombooking.com"
-MAIL_FROM_NAME="${APP_NAME}"
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+```
 
-VITE_APP_NAME="${APP_NAME}"
-
-
-Generate the application key:
-php artisan key:generate
+### Default Accounts
+- Admin: `admin@roombooking.com` / `password`
+- User: `user@roombooking.com` / `password`
 
 
-Create the SQLite database:
-touch database/database.sqlite
-chmod 775 database/database.sqlite
+### Default Accounts
+- **Admin:** admin@roombooking.com / password
+- **Regular User:** user@roombooking.com / password
 
 
+## User Guide
 
-3. Install Dependencies
+### For Regular Users
+1. **Account Creation**
+   ![Sign Up Page](assets/signUpPage.png)
 
-Install PHP dependencies:
-composer install
+2. **Secure Authentication System**
+  ![Login Page](assets/loginpage.png)
 
+3. ### User dashboard
+![Main Dashboard](assets/dashboardPage.png)
 
-Install Laravel Breeze for authentication:
-composer require laravel/breeze --dev
-php artisan breeze:install blade
+3. **Room Booking**
+   ![Booking Interface](assets/bookARoom.png)
 
+4. **Manage Bookings**
+   ![User Bookings Page](assets/bookingsPage.png)
 
-Install Node.js dependencies and compile assets:
-npm install
-npm run dev
+5. **Profile Management**
+   ![User Profile](assets/profilePage.png)
 
+## Admin Guide
 
+### Administrative Features
+1. **Room Management Dashboard**
+   ![Admin Rooms View](assets/roomsAdminPage.png)
 
-4. Set Up Tailwind CSS
+2. **Create New Rooms**
+   ![Room Creation](assets/createRoomAdmin.png)
 
-Install Tailwind CSS:
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init
+3. **Edit Existing Rooms**
+   ![Room Editing](assets/editRoomAdmin.png)
 
-
-Update tailwind.config.js:
-module.exports = {
-    content: [
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-    ],
-    theme: {
-        extend: {},
-    },
-    plugins: [],
-}
-
-
-Update resources/css/app.css:
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-Compile assets:
-npm run dev
-
-
-
-5. Apply Project Code
-Add the following files (refer to project documentation or source code for full details):
-
-Models: app/Models/Room.php, Booking.php, update User.php (add is_admin).
-Migrations: Update users table, add rooms and bookings tables.
-Controllers: app/Http/Controllers/RoomController.php, BookingController.php.
-Views: resources/views/rooms/index.blade.php, bookings/index.blade.php, etc.
-Mailables: app/Mail/BookingConfirmed.php, BookingCancelled.php.
-Seeders: database/seeders/DatabaseSeeder.php.
-Routes: Update routes/web.php.
-Middleware: Create app/Http/Middleware/Admin.php and register in app/Http/Kernel.php.
-
-Example: Register Admin middleware:
-php artisan make:middleware Admin
-
-Edit app/Http/Kernel.php, add to $routeMiddleware:
-'admin' => \App\Http\Middleware\Admin::class,
-
-6. Run Migrations and Seeders
-php artisan migrate:fresh --seed
-
-7. Start the Server
-php artisan serve
-
-Access the application at http://localhost:8000.
-Usage
-
-Register/Login:
-Admin: admin@roombooking.com / password
-User: user@roombooking.com / password
-
-
-User Actions:
-View available rooms.
-Book or cancel a room for a specific date.
-
-
-Admin Actions:
-Create, edit, or delete rooms.
-
-
-Email Notifications:
-Check Mailtrap inbox for booking confirmation/cancellation emails.
-
-
-
-Troubleshooting
-
-.env Errors:
-
-Verify .env syntax:
-cat -vet .env
-php -r "var_dump(parse_ini_file('.env'));"
-
-
-Ensure no extra whitespace in DB_DATABASE.
-
-
-
-Missing Files:
-
-Check app/Http/Kernel.php:
-ls app/Http/Kernel.php
-
-
-Recreate project if incomplete:
-composer create-project laravel/laravel room-booking-system
-
-
-
-
-Mailtrap Issues:
-
-Test email sending:
-php artisan tinker
-Mail::raw('Test email', function($message) { $message->to('test@example.com')->subject('Test'); });
-
-
-
-
-
-Contributing
-Contributions are welcome! Please submit a pull request or open an issue for suggestions or bug reports.
-License
-This project is open-source and licensed under the MIT License.
+4. **Delete Rooms**
+   ![Room Deletion](assets/deleteRoomAdmin.png)
