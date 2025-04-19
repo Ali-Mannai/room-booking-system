@@ -38,6 +38,5 @@ class DatabaseSeeder extends Seeder
             'room_id' => 2,
             'date' => '2025-04-21',
         ]);
-        // Add more bookings as needed
     }
 }
