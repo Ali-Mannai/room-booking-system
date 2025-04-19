@@ -1,10 +1,26 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Booking Details') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="container">
-        <h1>Booking Details</h1>
-        <p>Room: {{ $booking->room->name }}</p>
-        <p>Date: {{ $booking->date }}</p>
-        <a href="{{ route('bookings.index') }}" class="btn btn-secondary">Back to Bookings</a>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="space-y-4">
+                        <p class="text-lg"><span class="font-semibold">Room:</span> {{ $booking->room->name }}</p>
+                        <p class="text-lg"><span class="font-semibold">Date:</span> {{ $booking->date->format('Y-m-d') }}</p>
+                        
+                        <div class="mt-6">
+                            <a href="{{ route('bookings.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                Back to Bookings
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-@endsection
+</x-app-layout>
